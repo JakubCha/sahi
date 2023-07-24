@@ -24,7 +24,6 @@ IMAGE_PATH = "tests/data/small-vehicles1.jpeg"
 
 
 def download_mmdet_yolox_tiny_model():
-
     download_from_url(MMDET_YOLOX_TINY_MODEL_URL, MMDET_YOLOX_TINY_MODEL_PATH)
     download_from_url(MMDET_YOLOX_TINY_CONFIG_URL, MMDET_YOLOX_TINY_CONFIG_PATH)
 
@@ -143,7 +142,7 @@ class TestMmdetDetectionModel(unittest.TestCase):
         mmdet_detection_model.perform_inference(image)
 
         # convert predictions to ObjectPrediction list
-        mmdet_detection_model.convert_original_predictions()
+        mmdet_detection_model.convert_original_predictions(full_shape=(image.shape[0], image.shape[1]))
         object_predictions = mmdet_detection_model.object_prediction_list
 
         # compare

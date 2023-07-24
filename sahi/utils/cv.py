@@ -14,7 +14,7 @@ from PIL import Image
 
 from sahi.utils.file import Path
 
-IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".tiff", ".bmp"]
+IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".tiff", ".tif", ".bmp"]
 VIDEO_EXTENSIONS = [".mp4", ".mkv", ".flv", ".avi", ".ts", ".mpg", ".mov", "wmv"]
 
 
@@ -250,7 +250,6 @@ def get_video_reader(
             cv2.imshow("Prediction of {}".format(str(video_file_name)), cv2.WINDOW_AUTOSIZE)
 
             while video_capture.isOpened:
-
                 frame_num = video_capture.get(cv2.CAP_PROP_POS_FRAMES)
                 video_capture.set(cv2.CAP_PROP_POS_FRAMES, frame_num + frame_skip_interval)
 
@@ -570,6 +569,24 @@ def get_bbox_from_bool_mask(bool_mask):
     if width == 0 or height == 0:
         return None
 
+    return [xmin, ymin, xmax, ymax]
+
+
+def get_bbox_from_coco_segmentation(coco_segmentation):
+    """
+    Generate voc box ([xmin, ymin, xmax, ymax]) from given coco segmentation
+    """
+    xs = []
+    ys = []
+    for segm in coco_segmentation:
+        xs.extend(segm[::2])
+        ys.extend(segm[1::2])
+    if len(xs) == 0 or len(ys) == 0:
+        return None
+    xmin = min(xs)
+    xmax = max(xs)
+    ymin = min(ys)
+    ymax = max(ys)
     return [xmin, ymin, xmax, ymax]
 
 

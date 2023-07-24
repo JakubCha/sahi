@@ -230,7 +230,7 @@ def get_sliced_prediction(
         tqdm.write(f"Performing prediction on {num_slices} number of slices.")
     object_prediction_list = []
     # perform sliced prediction
-    for group_ind in range(num_group):
+    for group_ind in tqdm(range(num_group)):
         # prepare batch (currently supports only 1 batch)
         image_list = []
         shift_amount_list = []
