@@ -99,7 +99,7 @@ def list_files(
 
     for file in os.listdir(directory):
         # check if filename contains any of the terms given in contains list
-        if any(strtocheck in file.lower() for strtocheck in contains):
+        if any(strtocheck in file.lower() for strtocheck in contains) and not file.endswith(".tif.aux.xml"):
             filepath = os.path.join(directory, file)
             filepath_list.append(filepath)
 

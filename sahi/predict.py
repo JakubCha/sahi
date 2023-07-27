@@ -262,7 +262,10 @@ def get_sliced_prediction(
             image=image,
             detection_model=detection_model,
             shift_amount=[0, 0],
-            full_shape=None,
+            full_shape=[
+                slice_image_result.original_image_height,
+                slice_image_result.original_image_width,
+            ],
             postprocess=None,
         )
         object_prediction_list.extend(prediction_result.object_prediction_list)
