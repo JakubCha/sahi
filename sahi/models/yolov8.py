@@ -160,6 +160,10 @@ class Yolov8DetectionModel(DetectionModel):
                     bool_mask = cv2.resize(bool_mask, (self._original_shape[1], self._original_shape[0]))
                     bool_mask[bool_mask >= 0.5] = 1
                     bool_mask[bool_mask < 0.5] = 0
+                    # to prevent from processing empty masks
+                    # initially it was introduced: https://github.com/obss/sahi/pull/390/files
+                    if get_bbox_from_bool_mask(bool_mask) is None:
+                        continue
                     segmentation = get_coco_segmentation_from_bool_mask(bool_mask)
 
 

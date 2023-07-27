@@ -26,7 +26,7 @@ big_image_path = r'F:\DT\Estonia_Birds_2023\Collection_2\orthomosaics_sahi\test\
 # result = get_sliced_prediction(small_image_path, segmentation_model, slice_height=640, slice_width=640, overlap_height_ratio=0.1, overlap_width_ratio=0.1, postprocess_type="GREEDYNMM")
 # result = get_sliced_prediction(big_image_path, segmentation_model, slice_height=640, slice_width=640, overlap_height_ratio=0.1, overlap_width_ratio=0.1, postprocess_type="GREEDYNMM")
 
-images_directory = r'F:\DT\Estonia_Birds_2023\Collection_1\inference_toy_small\000'
+images_directory = r'F:\DT\Estonia_Birds_2023\Collection_1\inference_toy_small\999'
 
 export_dict = predict(
             model_type='yolov8',
@@ -96,7 +96,7 @@ def prepare_propositions(pickle_path, orto_dir):
     else:
         logging.info(f"No birds detected in orto: {pickle_path.stem}")
 
-pickles_path = Path(r'G:\DT\DL\jcharyton\sahi_change_mask_type_repo\runs\predict\exp6\pickles').glob("*.pickle")
+pickles_path = Path(r'G:\DT\DL\jcharyton\sahi_change_mask_type_repo\runs\predict\exp16\pickles').glob("*.pickle")
 
 # for debugging
 flight_propositions = []
