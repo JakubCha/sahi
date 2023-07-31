@@ -69,8 +69,8 @@ class Yolov8DetectionModel(DetectionModel):
             if not prediction_result[0].masks:
                 prediction_result[0].masks = Masks(torch.tensor([], device=self.model.device), prediction_result[0].boxes.orig_shape)
 
-            prediction_result_ = [(result.boxes.data[result.boxes.data[:, 4] >= 0.5], 
-                                  result.masks.data[result.boxes.data[:, 4] >= 0.5]) 
+            prediction_result_ = [(result.boxes.data[result.boxes.data[:, 4] >= self.confidence_threshold], 
+                                  result.masks.data[result.boxes.data[:, 4] >= self.confidence_threshold]) 
                                   for result in prediction_result]
 
         else:
@@ -158,8 +158,8 @@ class Yolov8DetectionModel(DetectionModel):
                     segmentation = None
                 else:
                     bool_mask = cv2.resize(bool_mask, (self._original_shape[1], self._original_shape[0]))
-                    bool_mask[bool_mask >= 0.5] = 1
-                    bool_mask[bool_mask < 0.5] = 0
+                    bool_mask[bool_mask >= self.mask_threshold] = 1
+                    bool_mask[bool_mask < self.mask_threshold] = 0
                     # to prevent from processing empty masks
                     # initially it was introduced: https://github.com/obss/sahi/pull/390/files
                     if get_bbox_from_bool_mask(bool_mask) is None:
